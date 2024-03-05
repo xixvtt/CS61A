@@ -13,9 +13,9 @@ def a_plus_abs_b(a, b):
     ['return h(a, b)']
     """
     if b >= 0:
-        h = _____
+        h = add
     else:
-        h = _____
+        h = sub
     return h(a, b)
 
 
@@ -37,7 +37,7 @@ def two_of_three(x, y, z):
     >>> [type(x).__name__ for x in ast.parse(inspect.getsource(two_of_three)).body[0].body]
     ['Expr', 'Return']
     """
-    return _____
+    return x **2  + y **2 + z ** 2 - max(x, y, z) ** 2
 
 
 def largest_factor(x):
@@ -50,8 +50,17 @@ def largest_factor(x):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
-    "*** YOUR CODE HERE ***"
+    res = float('-inf')
+    count = 0
+    for i in range(2, x):
+        if x % i == 0:
+            res = i
+            count += 1
+        elif count == 0:
+            res =1 
+    print(res)
 
+    
 
 def if_function(condition, true_result, false_result):
     """Return true_result if condition is a true value, and
@@ -95,14 +104,16 @@ def with_if_function():
     return if_function(cond(), true_func(), false_func())
 
 def cond():
-    "*** YOUR CODE HERE ***"
+    return 42 > 47
 
 def true_func():
-    "*** YOUR CODE HERE ***"
+    print("42")
+    return None
 
 def false_func():
-    "*** YOUR CODE HERE ***"
-
+    print("47")
+    return None
+if_function(cond, true_func, false_func)
 
 def hailstone(x):
     """Print the hailstone sequence starting at x and return its
@@ -119,5 +130,30 @@ def hailstone(x):
     >>> a
     7
     """
-    "*** YOUR CODE HERE ***"
+    len = 0
+    print(x)
+    while x != 1:
+        if x % 2 == 0:
+            len += 1
+            x = even_number(x)
+            
+        elif x % 2 != 0:
+            len += 1
+            x = odd_number(x)
 
+        elif x == 1:
+            len += 1
+    len += 1
+    return len
+
+def even_number(num):
+    num = num / 2
+    print(int(num))
+    return num
+
+def odd_number(num):
+    num = num * 3 + 1
+    print(int(num))
+    return num
+
+hailstone(10)
