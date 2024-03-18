@@ -193,25 +193,22 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
                 score1, score0 = score0, score1
         who = other(who)
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
-    # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 6
+    # first call will have say 
+        say = say(score0, score1)
     return score0, score1
 
 
-
-    
 # feral_hogs(7, 5)
-def strat0(s0, s1):
-    if s0 == 0: return 3
-    if s0 == 7: return 5
-    return 8
-def strat1(s0, s1):
-    if s0 == 0: return 1
-    if s0 == 4: return 2
-    return 6
-play(strat0, start1, 0, 0, goal= 21, dice = make_test_dice(2, 2, 3, 4, 2, 2, 2, 2, 2, 3, 5, 2, 2, 2, 2, 2, 2, 2, 6, 1), 
-     feral_hogs=False)
+# def strat0(s0, s1):
+#     if s0 == 0: return 3
+#     if s0 == 7: return 5
+#     return 8
+# def strat1(s0, s1):
+#     if s0 == 0: return 1
+#     if s0 == 4: return 2
+#     return 6
+# play(strat0, start1, 0, 0, goal= 21, dice = make_test_dice(2, 2, 3, 4, 2, 2, 2, 2, 2, 3, 5, 2, 2, 2, 2, 2, 2, 2, 6, 1), 
+#      feral_hogs=False)
 
 #######################
 # Phase 2: Commentary #
@@ -293,11 +290,24 @@ def announce_highest(who, last_score=0, running_high=0):
     55 point(s)! That's the biggest gain yet for Player 1
     """
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
-    # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 7
-
-
+    # even though not showing up, need to track each change of the score 
+    def say(score0, score1, curr_player = who):
+        # first player 
+        if curr_player == 0:
+            diff = score0 - last_score
+            if diff > running_high:
+                print(f"{diff} point(s)! That's the biggest gain yet for Player {who}")
+                return announce_highest(curr_player, score0, diff)
+            else:
+                return announce_highest(curr_player, score0, running_high)
+        else:
+            diff = score1 - last_score
+            if diff > running_high:
+                print(f"{diff} point(s)! That's the biggest gain yet for Player {who}")
+                return announce_highest(curr_player, score1, diff)
+            else:
+                return announce_highest(curr_player, score1, running_high)  
+    return say
 #######################
 # Phase 3: Strategies #
 #######################
