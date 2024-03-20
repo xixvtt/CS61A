@@ -342,9 +342,14 @@ def make_averaged(original_function, trials_count=1000):
     >>> averaged_dice()
     3.0
     """
-    # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 8
+    # get res from original_func then return the res 
+    def avg(*args):
+        avgres = 0
+        for i in range(trials_count):
+            avgres += original_function(*args)
+        return avgres / trials_count
+    return avg
+
 
 
 def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
@@ -356,11 +361,19 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     >>> max_scoring_num_rolls(dice)
     1
     """
-    # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 9
-
-
+    # first get the avg calling make_averaged function 
+    avg_score = make_averaged(roll_dice, trials_count)
+    # need to looping through to see max res    
+    global_max_roll = float('inf')
+    stored_max_res = float('-inf')
+    for curr_rolls in range(10, 0, -1):
+        curr_max_res = avg_score(curr_rolls, dice)
+        # we get curr max res, if the res > store max result then global roll == curr roll and return 
+        if curr_max_res >= stored_max_res:
+            stored_max_res, global_max_roll = curr_max_res, curr_rolls
+    return global_max_roll
+dice = make_test_dice(3)
+max_scoring_num_rolls(dice, trials_count= 1000)
 def winner(strategy0, strategy1):
     """Return 0 if strategy0 wins against strategy1, and 1 otherwise."""
     score0, score1 = play(strategy0, strategy1)
