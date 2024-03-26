@@ -372,8 +372,8 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
         if curr_max_res >= stored_max_res:
             stored_max_res, global_max_roll = curr_max_res, curr_rolls
     return global_max_roll
-dice = make_test_dice(3)
-max_scoring_num_rolls(dice, trials_count= 1000)
+# dice = make_test_dice(3)
+# max_scoring_num_rolls(dice, trials_count= 1000)
 def winner(strategy0, strategy1):
     """Return 0 if strategy0 wins against strategy1, and 1 otherwise."""
     score0, score1 = play(strategy0, strategy1)
@@ -419,9 +419,11 @@ def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     """This strategy rolls 0 dice if that gives at least CUTOFF points, and
     rolls NUM_ROLLS otherwise.
     """
-    # BEGIN PROBLEM 10
-    return 6  # Replace this statement
-    # END PROBLEM 10
+    result = free_bacon(opponent_score)
+    if result >= cutoff:
+        return 0
+    else:
+        return num_rolls
 
 
 def swap_strategy(score, opponent_score, cutoff=8, num_rolls=6):
@@ -429,9 +431,13 @@ def swap_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls 0 dice if it gives at least CUTOFF points and does not trigger a
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
-    # BEGIN PROBLEM 11
-    return 6  # Replace this statement
-    # END PROBLEM 11
+    if is_swap(score + free_bacon(opponent_score), opponent_score):
+        if (score + free_bacon(opponent_score) <= opponent_score):
+            return 0
+        else:
+            return num_rolls
+    else:
+        return bacon_strategy(score, opponent_score, cutoff, num_rolls)
 
 
 def final_strategy(score, opponent_score):
