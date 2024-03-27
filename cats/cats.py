@@ -15,10 +15,17 @@ def choose(paragraphs, select, k):
     paragraph returns true. If there are fewer than K such paragraphs, return
     the empty string.
     """
-    # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 1
+    for p in paragraphs:
+        # if select is true 
+        if select(p):
+            k -=1
+        if k == -1:
+            return p 
+    return '' 
 
+ps = ['short', 'really long', 'tiny']
+s = lambda p: len(p) <= 5
+choose(ps, s, 0)
 
 def about(topic):
     """Return a select function that returns whether a paragraph contains one
