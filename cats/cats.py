@@ -23,9 +23,9 @@ def choose(paragraphs, select, k):
             return p 
     return '' 
 
-ps = ['short', 'really long', 'tiny']
-s = lambda p: len(p) <= 5
-choose(ps, s, 0)
+# ps = ['short', 'really long', 'tiny']
+# s = lambda p: len(p) <= 5
+# choose(ps, s, 0)
 
 def about(topic):
     """Return a select function that returns whether a paragraph contains one
@@ -38,9 +38,18 @@ def about(topic):
     'Nice pup.'
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
-    # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 2
+    def check_parag(parag):
+        punc = '$#@&*"-+<>=()\'_!.'
+        for ch in parag:
+            if ch in punc:
+                parag = parag.replace(ch, '')
+        parag = parag.lower().split()
+
+        for t in topic:
+            if t in parag:
+                return True 
+        return False 
+    return check_parag
 
 
 def accuracy(typed, reference):
