@@ -158,8 +158,6 @@ def shifty_shifts(start, goal, limit):
             return limit + 1
         else:
             return 1+ shifty_shifts(start[1:], goal[1:], limit - 1)
-
-    diff += shifty_shifts()
     # END PROBLEM 6
 
 shifty_shifts('awful', 'awesome', 5)
