@@ -104,10 +104,38 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     from USER_WORD. Instead returns USER_WORD if that difference is greater
     than LIMIT.
     """
+    closest_word = None
+    smallest_diff = float('inf')
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    # user_word in valid_words else -> run diff_func
+    if user_word in valid_words:
+        return user_word
+    
+    # looping through the valid words
+    for word in valid_words:
+        curr_diff = diff_function(user_word, word, limit)
+        if curr_diff < smallest_diff:
+            smallest_diff = curr_diff
+            closest_word = word 
+        if smallest_diff == 0: break 
+    
+    if smallest_diff > limit:
+        return user_word
+    else:
+        return closest_word
+
+def diff_function(user_word, word, limit):
+    diff = abs(len(user_word) - len(word))
+
+    for u, w in zip(user_word, word):
+        if u != w:
+            diff += 1
+    # anycase all will return the num    
+    return diff
     # END PROBLEM 5
 
+first_diff = lambda w1, w2, limit: 1 if w1[0] != w2[0] else 0
+autocorrect('inside', ['idea', 'inside'], first_diff, 1)
 
 def shifty_shifts(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
