@@ -160,28 +160,28 @@ def shifty_shifts(start, goal, limit):
             return 1+ shifty_shifts(start[1:], goal[1:], limit - 1)
     # END PROBLEM 6
 
-shifty_shifts('awful', 'awesome', 5)
+# shifty_shifts('awful', 'awesome', 5)
+
 def meowstake_matches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
 
-    if ______________: # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    if limit < 0: # Fill in the condition
+        return limit + 1
 
-    elif ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    if not start or not goal:
+        return abs(len(start) - len(goal))
+    
+    if start[0] == goal[0]:
+        return meowstake_matches(start[1:], goal[1:], limit)
 
-    else:
-        add_diff = ...  # Fill in these lines
-        remove_diff = ... 
-        substitute_diff = ... 
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    # three differ operations and check which op is the min step
+    # check how many extra ch in goal we need to match 
+    add_diff = 1 + meowstake_matches(start, goal[1:], limit - 1)
+    remove_diff = 1 + meowstake_matches(start[1:], goal, limit - 1)
+    substitute_diff = 1 + meowstake_matches(start[1:], goal[1:], limit - 1)
+
+    return min(add_diff, remove_diff, substitute_diff)
+
 
 
 def final_diff(start, goal, limit):
