@@ -134,8 +134,8 @@ def diff_function(user_word, word, limit):
     return diff
     # END PROBLEM 5
 
-first_diff = lambda w1, w2, limit: 1 if w1[0] != w2[0] else 0
-autocorrect('inside', ['idea', 'inside'], first_diff, 1)
+# first_diff = lambda w1, w2, limit: 1 if w1[0] != w2[0] else 0
+# autocorrect('inside', ['idea', 'inside'], first_diff, 1)
 
 def shifty_shifts(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
@@ -143,10 +143,26 @@ def shifty_shifts(start, goal, limit):
     their lengths.
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    
+    # if one of the string is empty 
+    if not start or not goal:
+        return abs(len(start) - len(goal))
+    
+    # recursion 
+    if start[0] == goal[0]:
+        return shifty_shifts(start[1:], goal[1:], limit)
+    # if differ 
+    else:
+        # max than limit
+        if limit == 0:
+            return limit + 1
+        else:
+            return 1+ shifty_shifts(start[1:], goal[1:], limit - 1)
+
+    diff += shifty_shifts()
     # END PROBLEM 6
 
-
+shifty_shifts('awful', 'awesome', 5)
 def meowstake_matches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
     assert False, 'Remove this line'
