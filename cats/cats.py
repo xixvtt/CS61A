@@ -197,9 +197,24 @@ def final_diff(start, goal, limit):
 def report_progress(typed, prompt, id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 8
+    # first report_por func going to return the 100 correct word 
+    correctness = 0
+    for t, p in zip(typed, prompt):
+        if t == p:
+            correctness += 1
+        else:
+            break 
+    
+    progress = correctness / len(prompt)
 
+    message = {'id': id, 'progress': progress}
+    send(message)
+    return progress
+    # END PROBLEM 8
+# print_progress = lambda d: print('ID:', d['id'], 'Progress:', d['progress'])
+# typed = ['I', 'have', 'begun']
+# prompt = ['I', 'have', 'begun', 'to', 'type']
+# report_progress(typed, prompt, 1, print_progress)
 
 def fastest_words_report(times_per_player, words):
     """Return a text description of the fastest words typed by each player."""
