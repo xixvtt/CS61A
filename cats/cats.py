@@ -238,7 +238,7 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    # return 2D Array 
+    # times_per_p -> return 2D Array 
     
     # create player for each list 
     time_cost = [[] for _ in range(len(times_per_player))]
@@ -248,13 +248,11 @@ def time_per_word(times_per_player, words):
         for i in range(1, len(player_time)):
             time_consume = player_time[i] - player_time[i - 1]
             time_cost[player_idx].append(time_consume)
-    return [words, time_cost]
-
-
+    return game(words, time_cost)
     # END PROBLEM 9
 
-p = [[0,2,3],[2,4,7]]
-game = time_per_word(p, ['hello', 'world'])
+# p = [[0,2,3],[2,4,7]]
+# game = time_per_word(p, ['hello', 'world'])
 
 
 def fastest_words(game):
@@ -268,8 +266,20 @@ def fastest_words(game):
     players = range(len(all_times(game)))  # An index for each player
     words = range(len(all_words(game)))    # An index for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    # create player slots 
+    player_word_slot = [[] for _ in range(len(players))]
+    
+    for word_idx in words:
+        # each word time  looping by each player in players 
+        word_time = [time(game, player, word_idx) for player in players]
+
+        faster_player = word_time.index(min(word_time))
+        player_word_slot[faster_player].append(word_at(game, word_idx))
+
+    return player_word_slot
+    # return player_word_slot
     # END PROBLEM 10
+
 
 
 def game(words, times):
@@ -279,6 +289,7 @@ def game(words, times):
     assert all([isinstance(i, (int, float)) for t in times for i in t]), 'times lists should contain numbers'
     assert all([len(t) == len(words) for t in times]), 'There should be one word per time.'
     return [words, times]
+
 
 
 def word_at(game, word_index):
@@ -308,9 +319,11 @@ def game_string(game):
     """A helper function that takes in a game object and returns a string representation of it"""
     return "game(%s, %s)" % (game[0], game[1])
 
-enable_multiplayer = False  # Change to True when you
-
-##########################
+enable_multiplayer = True  # Change to True when you
+# p0 = [2, 2, 3]
+# p1 = [6, 1, 3]
+# fastest_words(game(['What', 'great', 'luck'], [p0, p1]))
+# ##########################
 # Extra Credit #
 ##########################
 
