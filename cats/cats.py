@@ -238,8 +238,23 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    # return 2D Array 
+    
+    # create player for each list 
+    time_cost = [[] for _ in range(len(times_per_player))]
+
+    for player_idx, player_time in enumerate(times_per_player):
+        # time consume calc from idx 1
+        for i in range(1, len(player_time)):
+            time_consume = player_time[i] - player_time[i - 1]
+            time_cost[player_idx].append(time_consume)
+    return [words, time_cost]
+
+
     # END PROBLEM 9
+
+p = [[0,2,3],[2,4,7]]
+game = time_per_word(p, ['hello', 'world'])
 
 
 def fastest_words(game):
